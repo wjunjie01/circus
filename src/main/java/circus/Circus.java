@@ -1,12 +1,12 @@
 package circus;
 
-import circus.animal.Animal;
-import circus.animal.Duck;
-import circus.animal.Parrot;
-import circus.animal.Tiger;
+import circus.animal.*;
 import circus.stuff.Cannon;
 import circus.stuff.Equipment;
 import circus.stuff.Ladder;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Circus {
     private static Animal[] animals = {
@@ -41,8 +41,37 @@ public class Circus {
     }
 
     public static void main(String[] args) {
-        makeAnimalsTalk();
-        System.out.println("Total value of animals " + calculateAssetValue(animals));
-        System.out.println("Total value of equipments " + calculateAssetValue(equipments));
+//        animals[3] = new Duck("Louie"); Arrays are fixed size upon declaration.
+//        In C, create a new array copy over all the elements or use a Stl vector
+        ArrayList<Animal> animalArrayList = new ArrayList<>(Arrays.asList(animals));
+        animalArrayList.add(new Duck ("Louie"));
+
+        Elephant strongOne = new Elephant("strongOne");
+        Parrot andy = new Parrot("Andy");
+        animalArrayList.add(strongOne);
+        animalArrayList.add(andy);
+
+        System.out.println("Before sorting... ");
+        printAllAnimals(animalArrayList);
+        printCircusSize(animalArrayList);
+
+        System.out.println("After sorting... ");
+        animalArrayList.sort(Animal.AnimalNameComparator);
+        printAllAnimals(animalArrayList);
+
+        System.out.println("Strong one is at position: " +animalArrayList.indexOf(strongOne));
+        //        makeAnimalsTalk();
+//        System.out.println("Total value of animals " + calculateAssetValue(animals));
+//        System.out.println("Total value of equipments " + calculateAssetValue(equipments));
+    }
+
+    private static void printCircusSize(ArrayList<Animal> animalArrayList) {
+        System.out.println("Number of animals in Circus: " + animalArrayList.size());
+    }
+
+    private static void printAllAnimals(ArrayList<Animal> animalArrayList) {
+        for (Animal a: animalArrayList){
+            System.out.println(a);
+        }
     }
 }
